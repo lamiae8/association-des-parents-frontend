@@ -1,0 +1,63 @@
+<table class="border-collapse w-full">
+  <thead>
+    <tr>
+      <th class="border border-gray-400 px-4 py-2">Nom</th>
+      <th class="border border-gray-400 px-4 py-2">Dates</th>
+      <th class="border border-gray-400 px-4 py-2">Date de paiement</th>
+      <th class="border border-gray-400 px-4 py-2">Validé</th>
+      <th class="border border-gray-400 px-4 py-2">Avec élève</th>
+      <th class="border border-gray-400 px-4 py-2">Distributions</th>
+      <th class="border border-gray-400 px-4 py-2">Produits</th>
+      <th class="border border-gray-400 px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let evenement of evenements">
+      <tr class="border border-gray-400">
+        <td class="border border-gray-400 px-4 py-2">{{ evenement.nom }}</td>
+        <td class="border border-gray-400 px-4 py-2">Du {{ evenement.dateDebut }} au {{ evenement.dateFin }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ evenement.datePaiement }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ evenement.valider ? 'Oui' : 'Non' }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ evenement.avecEleve ? 'Oui' : 'Non' }}</td>
+        <td class="border border-gray-400 px-4 py-4">
+          <ul>
+            <li *ngFor="let distribution of evenement.distributionList" class="my-auto mb-4">
+              <div class="flex justify-between">
+                <span class="font-semibold">Lieu:</span> {{ distribution.lieu }}
+              </div>
+              <div class="flex justify-between">
+                <span class="font-semibold">Le:</span> {{ distribution.dateDistribution }}
+              </div>
+              <div class="flex justify-between">
+                <span class="font-semibold">Distribution:</span> {{ distribution.distributeur }}
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="border border-gray-400 px-4 py-4">
+          <ul >
+            <li *ngFor="let produit of evenement.produitList" class=" my-auto mb-4">
+              <div class="flex justify-between">
+               <span class="font-semibold">Produit:</span>  {{ produit.nom }}
+              </div>
+              <div class="flex justify-between">
+               <span class="font-semibold">Fournisseur:</span>  {{ produit.fournisseur }}
+              </div>
+              <div class="flex justify-between">
+                <span class="font-semibold">Prix: </span>{{ produit.prix }}
+              </div>
+              <div class="flex justify-between">
+                <span *ngIf="produit.option" class="ml-2 text-sm">(Optionnel)</span>
+              </div>
+            </li>
+          </ul>
+        </td>
+
+        <td class="border-gray-400 px-4 py-2">
+          <button (click)="redirectToEventDetail(evenement.id)" class="px-2 py-1 mx-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Détails</button>
+          <button *ngIf="isAdm()" (click)="redirectToEventUpdate(evenement.id)" class="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Modifier</button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

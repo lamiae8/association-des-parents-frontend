@@ -1,0 +1,23 @@
+<div class="min-h-screen flex items-center -mt-4 justify-center">
+  <div class="max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-14 text-center">Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="log()">
+      <div class="mb-4">
+        <input type="email" formControlName="mail" placeholder="Adresse mail" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+      </div>
+      <div class="mb-4">
+        <input type="password" formControlName="motDePasse" placeholder="Mot de passe" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+      </div>
+      <div *ngIf="loginError" class="text-red-500 text-center mt-4">
+        {{ loginError }}
+      </div>
+      <button type="submit" [disabled]="!loginForm.valid" class="w-full bg-blue-500 text-white mt-6 py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Se connecter</button>
+      <p class="text-center mt-2">Vous n'avez pas de compte ? <a routerLink="/inscription" class="text-blue-500 hover:text-blue-700">Créer un compte</a></p>
+      <p class="text-center mt-2">Mot de pass oublié ? <a routerLink="/password-forgotten" class="text-blue-500 hover:text-blue-700">Réinitialiser le mot de passe</a></p>
+    </form>
+  </div>
+</div>
+
+
+
+

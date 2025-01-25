@@ -1,0 +1,42 @@
+<nav class="bg-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <a href="#" class="flex-shrink-0 flex items-center">
+          <span class="text-xl font-bold text-gray-800">AssoParent</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-1" *ngIf="isLoggedIn()">
+          <div class="relative">
+            <button (click)="derouleUser()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Menu
+            </button>
+            <div [class.hidden]="!isUserMenuOpen" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-1 z-20">
+              <a href="/event" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Événements</a>
+              <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-1" *ngIf="isAdmin || isSuperAdmin">
+          <div class="relative">
+            <button (click)="derouleAdmin()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Admin Menu
+            </button>
+            <div [class.hidden]="!isAdminMenuOpen" class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-1 z-20">
+              <a href="/event/create" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Création d'événements</a>
+              <a href="/modifier-role" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Modification rôle</a>
+              <a href="/admin-details" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Comptes</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-grow"></div>
+      </div>
+
+      <div class="flex items-center">
+        <button *ngIf="isLoggedIn()" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" (click)="logout()">Déconnexion</button>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,41 @@
+<div class="container mx-auto">
+  <h1 class="text-3xl font-semibold mb-6">Créer un nouveau compte</h1>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm" class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="nom" class="block text-sm font-medium text-gray-700">Nom :</label>
+        <input type="text" id="nom" name="nom" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+      </div>
+      <div class="form-group">
+        <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="email" class="block text-sm font-medium text-gray-700">E-mail :</label>
+        <input type="email" id="mail" name="mail" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+      </div>
+      <div class="form-group">
+        <label for="telephone" class="block text-sm font-medium text-gray-700">Téléphone :</label>
+        <input type="tel" id="telephone" name="telephone" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="motDePasse" class="block text-sm font-medium text-gray-700">Mot de passe :</label>
+        <input type="password" id="motDePasse" name="motDePasse" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+      </div>
+      <div class="form-group">
+        <label for="role" class="block text-sm font-medium text-gray-700">Rôle :</label>
+        <select id="role" name="role" ngModel required class="input-field rounded-md px-3 py-2 border border-gray-300 focus:outline-none focus:border-blue-500">
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn-primary rounded-md px-3 py-2 bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Créer</button>
+    </div>
+  </form>
+  <div *ngIf="errorMessage" class="error-message text-red-500">{{ errorMessage }}</div>
+</div>

@@ -1,0 +1,38 @@
+
+<nav class="bg-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-end mt-4">
+      <a href="/admin-create" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+        Créer un compte
+      </a>
+    </div>
+  </div>
+</nav>
+<table class="border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="border border-gray-400 px-4 py-2">Nom</th>
+        <th class="border border-gray-400 px-4 py-2">Prénom</th>
+        <th class="border border-gray-400 px-4 py-2">E-mail</th>
+        <th class="border border-gray-400 px-4 py-2">Téléphone</th>
+        <th class="border border-gray-400 px-4 py-2">Rôle</th>
+        <th class="border border-gray-400 px-4 py-2">Statut</th>
+        <th class="border border-gray-400 px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of adultes" class="border border-gray-400">
+        <td class="border border-gray-400 px-4 py-2">{{ admin.nom }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ admin.prenom }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ admin.mail }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ admin.telephone }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ admin.role }}</td>
+        <td class="border border-gray-400 px-4 py-2">{{ admin.active ? 'Actif' : 'Inactif' }}</td>   
+        <td class="border border-gray-400 px-4 py-2">
+          <button (click)="redirectToAdminDetail(admin.id)" class="px-2 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Détails</button>
+        </td>   
+      </tr>
+    </tbody>
+  </table>
+  
+  

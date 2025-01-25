@@ -1,0 +1,41 @@
+<div class="min-h-screen flex items-center mt-2 justify-center">
+<div class="max-w-md w-full">
+  <h2 class="text-2xl font-bold mb-4 text-center">Mon profil </h2>
+  <a routerLink="/mesCommandes" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Mes Commandes</a>
+
+  <form [formGroup]="userProfileForm" (ngSubmit)="updateUserProfile()" class="max-w-md mx-auto mt-6">
+  <div class="mb-4">
+    <label for="nom" class="block font-semibold mb-1">Nom</label>
+    <input type="text" id="nom" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" formControlName="nom" placeholder="Votre nom">
+  </div>
+
+  <div class="mb-4">
+    <label for="prenom" class="block font-semibold mb-1">Prénom</label>
+    <input type="text" id="prenom" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" formControlName="prenom" placeholder="Votre prénom">
+  </div>
+
+  <div class="mb-4">
+    <label for="mail" class="block font-semibold mb-1">Email</label>
+    <input type="email" id="mail" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" formControlName="mail" placeholder="Votre email" [disabled]="isEmailDisabled">
+  </div>
+
+  <div class="mb-4">
+    <label for="telephone" class="block font-semibold mb-1">Téléphone</label>
+    <input type="text" id="telephone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" formControlName="telephone" placeholder="Votre numéro de téléphone">
+  </div>
+  <h2 class="text-4xl font-extrabold dark:text-white">Mes enfants</h2>
+  <div formArrayName="eleves">
+    <div *ngFor="let eleve of eleves.controls; let i = index" [formGroupName]="i" class="mb-4">
+      <input type="text" formControlName="nom" class="w-full px-4 py-2 my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Nom de l'élève">
+      <input type="text" formControlName="prenom" class="w-full px-4 py-2 my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Prénom de l'élève">
+      <input type="date" formControlName="dateNaissance" class="w-full px-4 py-2 my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Date de naissance">
+      <input type="text" formControlName="niveau" class="w-full px-4 py-2 my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" placeholder="Niveau">
+      <button type="button" (click)="removeEleve(i)" class="inline-block px-4 py-2 my-2 bg-red-500 text-white rounded-md mt-2">Supprimer</button>
+    </div>
+    <button type="button" (click)="addEleve()" class="inline-block px-4 py-2 bg-green-500 text-white rounded-md">Ajouter un élève</button>
+  </div>
+
+  <button type="submit" class="inline-block px-6 py-3 bg-blue-500 text-white rounded-md mt-4">Mettre à jour le profil</button>
+</form>
+</div>
+</div>

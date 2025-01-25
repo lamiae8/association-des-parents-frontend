@@ -1,0 +1,28 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-14 text-center">Inscription</h2>
+<form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()" class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+
+  <input type="text" formControlName="nom" placeholder="Nom" class="border border-gray-300 px-4 py-2 rounded-lg block mb-4 w-full">
+  <input type="text" formControlName="prenom" placeholder="Prénom" class="border border-gray-300 px-4 py-2 rounded-lg block mb-4 w-full">
+  <input type="email" formControlName="mail" placeholder="Email" class="border border-gray-300 px-4 py-2 rounded-lg block mb-4 w-full">
+  <input type="password" formControlName="motDePasse" placeholder="Mot de passe" class="border border-gray-300 px-4 py-2 rounded-lg block mb-4 w-full">
+  <input type="text" formControlName="telephone" placeholder="Téléphone" class="border border-gray-300 px-4 py-2 rounded-lg block mb-4 w-full">
+
+  <div formArrayName="eleves" class="mb-4">
+    <div *ngFor="let eleve of eleves.controls; let i=index" [formGroupName]="i" class="mb-4">
+      <input type="text" formControlName="nom" placeholder="Nom de l'élève" class="border border-gray-300 px-4 py-2 rounded-lg block mb-2 w-full">
+      <input type="text" formControlName="prenom" placeholder="Prénom de l'élève" class="border border-gray-300 px-4 py-2 rounded-lg block mb-2 w-full">
+      <input type="date" formControlName="dateNaissance" placeholder="Date de naissance" class="border border-gray-300 px-4 py-2 rounded-lg block mb-2 w-full">
+      <input type="text" formControlName="niveau" placeholder="Niveau" class="border border-gray-300 px-4 py-2 rounded-lg block mb-2 w-full">
+      <button type="button" (click)="supprimerEleve(i)" class="bg-red-500 text-white px-4 py-2 rounded-lg">Supprimer l'élève</button>
+    </div>
+  </div>
+
+  <button type="button" (click)="ajouterEleve()" class="bg-blue-500 text-white px-4 py-2 rounded-lg mb-4 mx-2">Ajouter un élève</button>
+
+  <button type="submit" class="bg-green-500 text-white px-4 py-2 mx-2 rounded-lg">Créer un compte</button>
+
+</form>
+  </div>
+</div>

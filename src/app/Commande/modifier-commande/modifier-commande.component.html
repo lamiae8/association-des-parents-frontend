@@ -1,0 +1,32 @@
+<div *ngIf="commande" class="container mx-auto my-6 p-4 shadow-lg rounded bg-white">
+  <form [formGroup]="commandeForm" (ngSubmit)="saveCommande()" class="space-y-4">
+    <div formArrayName="commandeProduits" class="space-y-2">
+      <div *ngFor="let produitFormGroup of commandeProduitsFormArray.controls; let i = index" [formGroupName]="i">
+        <p class="text-lg font-semibold">Nom du produit: {{ commande?.commandeProduits?.[i]?.produit?.nom }}</p>
+        <p class="mb-1">Prix: {{ commande?.commandeProduits?.[i]?.produit?.prix | currency }}</p>
+        <label for="quantite-{{i}}" class="block text-sm font-medium text-gray-700">Quantité:</label>
+        <input type="number" id="quantite-{{i}}" formControlName="quantite" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+        <button type="button" class="mt-2 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" (click)="deleteCommandeProduit(i)">
+          Supprimer
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="event?.avecEleve" class="mt-4">
+      <label for="eleve" class="block text-sm font-medium text-gray-700">Élève (optionnel):</label>
+      <select id="eleve" formControlName="eleve" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+        <option value="">-- Sélectionnez un élève (optionnel) --</option>
+        <option *ngFor="let eleve of eleves" [ngValue]="eleve">{{ eleve.nom }} {{ eleve.prenom }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" [disabled]="!commandeForm.valid">
+      Enregistrer les modifications
+    </button>
+  </form>
+</div>
+
+
+
+
+

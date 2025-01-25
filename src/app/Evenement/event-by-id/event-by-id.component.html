@@ -1,0 +1,110 @@
+<div *ngIf="evenement" class="p-4">
+  <h2 class="text-2xl font-bold mb-4">{{ evenement.nom }}</h2>
+  <table class="min-w-full divide-y divide-gray-200">
+    <tbody class="bg-white divide-y divide-gray-200">
+      <tr>
+        <td class="px-6 py-3 font-semibold">Période</td>
+        <td class="px-6 py-3">{{ evenement.dateDebut }} - {{ evenement.dateFin }}</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3 font-semibold">Date de paiement</td>
+        <td class="px-6 py-3">{{ evenement.datePaiement }}</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3 font-semibold">Validé</td>
+        <td class="px-6 py-3">{{ evenement.valider ? 'Oui' : 'Non' }}</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-3 font-semibold">Avec élève</td>
+        <td class="px-6 py-3">{{ evenement.avecEleve ? 'Oui' : 'Non' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Distributions -->
+  <div *ngIf="evenement.distributionList && evenement.distributionList.length > 0" class="mt-4">
+    <h3 class="text-lg font-semibold">Distributions</h3>
+    <table class="min-w-full divide-y divide-gray-200 mt-2">
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let distribution of evenement.distributionList">
+          <td class="px-6 py-3">{{ distribution.distributeur }}</td>
+          <td class="px-6 py-3">{{ distribution.lieu }}</td>
+          <td class="px-6 py-3">{{ distribution.dateDistribution }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Produits -->
+  <div *ngIf="evenement.produitList && evenement.produitList.length > 0" class="mt-4">
+    <h3 class="text-lg font-semibold">Produits</h3>
+    <table class="min-w-full divide-y divide-gray-200 mt-2">
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let produit of evenement.produitList">
+          <td class="px-6 py-3">{{ produit.nom }}</td>
+          <td class="px-6 py-3">{{ produit.fournisseur }}</td>
+          <td class="px-6 py-3">{{ produit.prix }}</td>
+          <td class="px-6 py-3">{{ produit.option ? ' (Optionnel)' : '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Commandes -->
+  <div *ngIf="commande && commande.length > 0 && isAdmin " class="mt-4">
+    <h3 class="text-lg font-semibold">Commandes</h3>
+    <table class="min-w-full divide-y divide-gray-200 mt-2">
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let commande of commande | slice:(currentPage-1)*10:currentPage*10">
+          <td class="px-6 py-3">{{ commande.id }}</td>
+          <td class="px-6 py-3"> <ng-container *ngIf="commande.adulte">
+            <ng-container *ngIf="commande.adulte.nom && commande.adulte.prenom">
+              {{ commande.adulte.nom }} &nbsp; {{ commande.adulte.prenom }}
+            </ng-container>
+          </ng-container></td>
+          <td class="px-6 py-3"> <ng-container *ngIf="commande.eleve">
+            <ng-container *ngIf="commande.eleve.nom && commande.eleve.prenom">
+              {{ commande.eleve.nom }} {{ commande.eleve.prenom }}
+            </ng-container>
+          </ng-container></td>
+          <td class="px-6 py-3"  *ngIf="isAdmin">
+            <button [disabled]="commande.payer" [class.pointer-events-none]="commande.payer" [class.opacity-30]="commande.payer" (click)="validatePaiement(commande.id)" class="px-4 py-2 mx-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Valider Paiement</button>
+            <button [disabled]="commande.distribuer" [class.pointer-events-none]="commande.distribuer || !commande.payer" [class.opacity-30]="commande.distribuer || !commande.payer" (click)="validateDistribution(commande.id)" class="px-4 py-2 mx-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Valider Distribution</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+       <!-- Pagination -->
+ <nav aria-label="Pagination" class="flex ml-32 items-center text-gray-600">
+  <button (click)="previousPage()" class="p-2 mr-4 rounded hover:bg-gray-100">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <ng-container *ngFor="let pageNumber of getPageNumbers()">
+    <button (click)="goToPage(pageNumber)"  class="px-4 py-2 rounded hover:bg-gray-100" [class.bg-gray-200]="currentPage === pageNumber" [class.text-gray-900]="currentPage === pageNumber">{{ pageNumber }}</button>
+  </ng-container>
+  <button (click)="nextPage()"  class="p-2 ml-4 rounded hover:bg-gray-100">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</nav>
+
+
+ </div>
+ <!-- Boutons d'action -->
+<div class="mt-4 grid grid-cols-2 gap-4 items-center justify-items-center" *ngIf="isAdmin">
+  <button (click)="deleteThisEvent()" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600">Supprimer cet événement</button>
+  <button (click)="validateEvent()" [class.pointer-events-none]="evenement.valider" [class.opacity-30]="evenement.valider" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Valider cet événement</button>
+  <button (click)="generateAndDownloadCsv()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Télécharger le fichier</button>
+  <div>
+    <button (click)="sendReminderMail()" class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:bg-yellow-600">Envoyer Rappel de Paiement</button>
+    <p [class]="messageType" class="mt-2">{{ message }}</p>
+  </div>
+</div>
+  <button (click)="goToCommandePage()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Commander</button>
+<div *ngIf="!evenement" class="p-4">
+  <p>L'événement demandé n'est pas disponible.</p>
+</div>
+</div>

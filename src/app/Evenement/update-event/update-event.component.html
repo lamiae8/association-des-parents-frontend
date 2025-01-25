@@ -1,0 +1,149 @@
+<form #eventForm="ngForm" class="w-full max-w-4xl my-14 my-auto mx-auto">
+    <p class="text-center mb-8 text-3xl font-bold">Mise à jour d'événement</p>
+    <div class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+        <label for="nom" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Nom
+        </label>
+        <input id="nom" name="nom" type="text" placeholder="Nom de l'événement" [(ngModel)]="evenement.nom"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+      </div>
+    </div>
+    <div class="flex flex-wrap -mx-3 mb-2">
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label for="dateDebut" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Date de début
+        </label>
+        <input id="dateDebut" name="dateDebut" type="date" [(ngModel)]="evenement.dateDebut"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label for="dateFin" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Date de fin
+        </label>
+        <input id="dateFin" name="dateFin" type="date" [(ngModel)]="evenement.dateFin"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      </div>
+      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label for="datePaiement" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+          Date de paiement
+        </label>
+        <input id="datePaiement" name="datePaiement" type="date" [(ngModel)]="evenement.datePaiement"
+          class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+      </div>
+    </div>
+    <div class="flex flex-wrap mb-2">
+      <div class="w-full md:w-1/2 mb-6 my-6 md:mb-0">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 inline-flex items-center cursor-pointer">Avec
+          élève
+          <input type="checkbox" name="avecEleve" [(ngModel)]="evenement.avecEleve" class="sr-only peer">
+          <div
+            class="ml-4 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+          </div>
+        </label>
+      </div>
+    </div>
+  
+    <p class="mb-8 text-xl font-bold">Distributions</p>
+  
+    <div *ngFor="let distribution of evenement.distributionList; let i=index" class="flex flex-wrap -mx-3 mb-6">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <div class="flex flex-wrap -mx-3">
+  
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Lieu
+            </label>
+            <input id="lieu" name="lieu{{i}}" type="text" placeholder="Lieu de distribution"
+              [(ngModel)]="distribution.lieu"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+          </div>
+  
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Date de distribution
+            </label>
+            <input type="datetime-local" name="dateDistribution{{i}}" [(ngModel)]="distribution.dateDistribution"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          </div>
+  
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Distributeur
+            </label>
+            <input placeholder="Nom de distributeur" type="text" [(ngModel)]="distribution.distributeur"
+              name="distributeur{{i}}"
+              class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          </div>
+  
+      <!--    <div *ngIf="i!=0" class="md:w-2 px-2 pt-8 md:mb-0">
+            <button (click)="removeDistribution(i)"
+              class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600">-</button>
+          </div>-->
+        </div>
+      </div>
+    </div>
+   <!-- <span (click)="addDistribution()"
+      class="bg-green-500 text-white px-3 py-2 rounded-md cursor-pointer hover:bg-green-600">+</span>
+    -->
+  
+    <p class="my-8  text-xl font-bold">Produits</p>
+    <div class="flex flex-wrap -mx-3 mb-6" *ngFor="let produit of evenement.produitList; let i=index">
+      <div class="w-full px-3 mb-6 md:mb-0">
+        <div class="flex flex-wrap -mx-3">
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Nom du produit
+            </label>
+            <input name="nom{{i}}" placeholder="Nom du produit" type="text" [(ngModel)]="produit.nom"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          </div>
+  
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Prix du produit
+            </label>
+            <input name="prix{{i}}" placeholder="Prix du produit" type="number" min="0" [(ngModel)]="produit.prix"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          </div>
+  
+          <div class="px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Fournisseur du produit
+            </label>
+            <input name="fournisseur{{i}}" placeholder="Fournisseur du produit" type="text"
+              [(ngModel)]="produit.fournisseur"
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          </div>
+          <div class="mb-6 my-8 md:mb-0">
+            <label
+              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 inline-flex items-center cursor-pointer">Option
+              <input type="checkbox" name="option{{i}}" [(ngModel)]="produit.option" class="sr-only peer">
+              <div
+                class="ml-4 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+              </div>
+            </label>
+          </div>
+  
+  <!--
+          <div *ngIf="i!=0" class="w-full md:w-2 h-2 px-2 pt-8 md:mb-0">
+            <button (click)="removeProduct(i)"
+              class="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600">-</button>
+          </div>-->
+        </div>
+      </div>
+    </div>
+<!--    <span (click)="addProduct()"
+      class="bg-green-500 text-white px-3 py-2 rounded-md cursor-pointer hover:bg-green-600">+</span>
+  -->
+    <div class="mt-6 flex items-center justify-center gap-x-6">
+      <button (click)="updateEvent()" type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Mettre à jour</button>
+    </div>
+    <div *ngIf="!auMoinsUnProduitAOptionFalse()" class=" flex items-center justify-center text-red-500 mt-2">
+        Il doit y avoir au moins un produit avec l'option désactivée.
+      </div>
+</form>
+  
+  

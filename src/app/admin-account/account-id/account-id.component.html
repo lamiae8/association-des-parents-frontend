@@ -1,0 +1,31 @@
+<div class="p-6 bg-white rounded-md shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Détails du compte</h2>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+        <p><strong>Nom :</strong> {{ adulte.nom }}</p>
+        <p><strong>Prénom :</strong> {{ adulte.prenom }}</p>
+        <p><strong>Mail :</strong> {{ adulte.mail }}</p>
+        <p><strong>Téléphone :</strong> {{ adulte.telephone }}</p>
+        <p><strong>Rôle :</strong> {{ adulte.role }}</p>
+        <p><strong>Statut :</strong> {{ adulte.active ? 'Actif' : 'Inactif' }}</p>
+    </div>
+    <div *ngIf="adulte.role === 'PARENT'">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Niveau</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date de naissance</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr *ngFor="let eleve of adulte.eleves">
+                    <td class="px-6 py-4 whitespace-nowrap">{{ eleve.nom }}</td>       
+                    <td class="px-6 py-4 whitespace-nowrap">{{ eleve.prenom }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ eleve.niveau }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ eleve.dateNaissance }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
